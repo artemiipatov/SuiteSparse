@@ -2239,13 +2239,13 @@ int LAGr_SampleDegree
 LAGRAPH_PUBLIC
 int LAGr_BreadthFirstSearch
 (
-    // output:
-    GrB_Vector *level,
-    GrB_Vector *parent,
-    // input:
+    GrB_Matrix    *level,
+    GrB_Matrix    *parent,
     const LAGraph_Graph G,
-    GrB_Index src,
-    char *msg
+    GrB_Index*      src,
+    int             src_count,
+    char          *msg
+
 ) ;
 
 //------------------------------------------------------------------------------

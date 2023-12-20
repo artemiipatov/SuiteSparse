@@ -36,12 +36,11 @@ int LG_BreadthFirstSearch_SSGrB
 
 int LG_BreadthFirstSearch_vanilla
 (
-    // output:
-    GrB_Vector    *level,
-    GrB_Vector    *parent,
-    // input:
+    GrB_Matrix    *level,
+    GrB_Matrix    *parent,
     const LAGraph_Graph G,
-    GrB_Index      src,
+    GrB_Index*      src,
+    int             src_count,
     char          *msg
 ) ;
 

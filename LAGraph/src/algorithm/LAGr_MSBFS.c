@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------
-// LG_BreadthFirstSearch_vanilla:  BFS using only GraphBLAS API
+// LG_BreadthFirstSearch_vanilla:  MSBFS using only GraphBLAS API
 //------------------------------------------------------------------------------
 
 // LAGraph, (c) 2019-2022 by The LAGraph Contributors, All Rights Reserved.
@@ -33,15 +33,15 @@
 
 #include "LG_internal.h"
 
-int LG_BreadthFirstSearch_vanilla
-(
-    GrB_Matrix    *level,
-    GrB_Matrix    *parent,
-    const LAGraph_Graph G,
-    GrB_Index*      src,
-    int             src_count,
-    char          *msg
-)
+int LAGr_MSBFS
+        (
+                GrB_Matrix    *level,
+                GrB_Matrix    *parent,
+                const LAGraph_Graph G,
+                GrB_Index*      src,
+                int             src_count,
+                char          *msg
+        )
 {
 
     //--------------------------------------------------------------------------
@@ -150,7 +150,7 @@ int LG_BreadthFirstSearch_vanilla
         {
             // assign levels: l_level<s(frontier)> = current_level
             GRB_TRY( GrB_Matrix_assign_UINT64(l_level, frontier, GrB_NULL,
-                                              current_level, GrB_ALL, row_count, GrB_ALL, n, GrB_DESC_S) );
+                                current_level, GrB_ALL, row_count, GrB_ALL, n, GrB_DESC_S) );
             ++current_level;
         }
 
@@ -159,7 +159,7 @@ int LG_BreadthFirstSearch_vanilla
             // frontier(i) currently contains the parent id of node i in tree.
             // l_parent<s(frontier)> = frontier
             GRB_TRY( GrB_Matrix_assign(l_parent, frontier, GrB_NULL,
-                                       frontier, GrB_ALL, row_count, GrB_ALL, n, GrB_DESC_S) );
+                                frontier, GrB_ALL, row_count, GrB_ALL, n, GrB_DESC_S) );
 
             // convert all stored values in frontier to their indices
             GRB_TRY (GrB_apply (frontier, GrB_NULL, GrB_NULL, ramp,

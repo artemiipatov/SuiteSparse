@@ -27,19 +27,18 @@
 
 int LAGr_BreadthFirstSearch
 (
-    // output:
-    GrB_Vector *level,
-    GrB_Vector *parent,
-    // input:
+    GrB_Matrix    *level,
+    GrB_Matrix    *parent,
     const LAGraph_Graph G,
-    GrB_Index src,
-    char *msg
+    GrB_Index*      src,
+    int             src_count,
+    char          *msg
 )
 {
 
 #if LAGRAPH_SUITESPARSE
-    return LG_BreadthFirstSearch_SSGrB   (level, parent, G, src, msg) ;
+    return LG_BreadthFirstSearch_vanilla   (level, parent, G, src, src_count, msg) ;
 #else
-    return LG_BreadthFirstSearch_vanilla (level, parent, G, src, msg) ;
+    return LG_BreadthFirstSearch_vanilla (level, parent, G, src, src_count, msg) ;
 #endif
 }
